@@ -3,5 +3,18 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-<h1>Pagina de Inicio</h1>
+    <div class="container-sm text-center">
+        <h1 class="display-3">Welcome to your task manager</h1>
+
+        <p class="lead">Here you can keep track of all your tasks and have an overview of your pending tasks.</p>
+
+        <hr class="my-4">
+
+        <p>Already have an account?</p>
+
+        <div class="d-flex justify-content-center">
+            <a href="{{url_for('auth.login')}}" class="btn btn-primary mx-2">Log In</a>
+            <a href="{{url_for('auth.signup')}}" class="btn btn-secondary mx-2">Sign Up</a>
+        </div>
+    </div>
 {% endblock %}
