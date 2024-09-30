@@ -1,0 +1,1 @@
+<h4>TaskManager is an application that helps you organize tasks and to-dos in an easy, fast and simple way with a dynamic, understandable and scalable design. Through calendars, checks, reminders and task priority categorization, the user will always be aware of which tasks require the most importance.</h4>
