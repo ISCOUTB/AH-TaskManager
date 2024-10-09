@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="container-fluid">
+    <nav class="navbar">
+        <h1>{% block title %}Tasks Review{% endblock %}</h1>
+        <a href="{{ url_for('taskManager.create') }}" class="btn btn-success">New</a>
+    </nav>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col">Tasks</th>
+                <th class="col">Status</th>
+                <th class="col" colspan="2">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for todo in todos | reverse %}
+            {% if g.user.id == todo.created_by %}
+            <tr>
+                <td>
+                    <h5>{{todo.title}}</h5>
+                    <p>{{todo.description}}</p>
+                </td>
+                <td>
+                    {% if todo.status == false %}
+                    <span class="text-warning">Incomplete</span>
+                    {% else %}
+                    <span class="text-success">Complete</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('taskManager.update', id = todo.id) }}" class="btn btn-info btn-sm">Edit</a>
+                </td>
+                <td>
+                    <a href="{{ url_for('taskManager.delete', id = todo.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
