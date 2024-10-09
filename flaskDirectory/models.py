@@ -20,8 +20,8 @@ class Todo(db.Model):
     description = db.Column(db.Text)
     status = db.Column(db.Boolean, default = False)
 
-    def __init__(self, create_by, title, description, status = False):
-        self.create_by = create_by
+    def __init__(self, created_by, title, description, status = False):
+        self.created_by = created_by
         self.title = title
         self.description = description
         self.status = status

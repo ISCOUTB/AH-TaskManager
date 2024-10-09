@@ -11,7 +11,7 @@ def create_app():
     app.config.from_mapping(
         DEBUG = True,
         SECRET_KEY = 'dev',
-        SQLALCHEMY_DATABASE_URI = "sqlite:///dbproyecto.db"
+        SQLALCHEMY_DATABASE_URI = "sqlite:///taskManagerDB.db"
     )
 
     db.init_app(app)
