@@ -1,0 +1,5 @@
+Flask
+FastAPI
+uvicorn
+flask_SQLAlchemy
+PyMySQL
