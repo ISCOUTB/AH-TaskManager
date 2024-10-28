@@ -1,14 +1,20 @@
-FROM python:latest
+# Usa una imagen base oficial de Python
+FROM python:3.8-slim
 
-WORKDIR /usr/src/app
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
 
-COPY requirements.txt ./
+# Copia el archivo requirements.txt en el directorio de trabajo
+COPY requirements.txt .
 
+# Instala las dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copia el resto del código de la aplicación en el directorio de trabajo
 COPY . .
 
+# Expone el puerto en el que la aplicación correrá
 EXPOSE 8000
 
-
-CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]
+# Comando para ejecutar la aplicación
+CMD ["python", "run.py"]

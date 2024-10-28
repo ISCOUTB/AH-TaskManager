@@ -1,77 +1,48 @@
 services:
-  
-  apache:
-    image: httpd:latest
-    container_name: ah_taskmanager_apache
-    ports:
-      - "80:80"
-    volumes:
-      - ./apache:/usr/local/apache2/htdocs/
-    networks:
-      - ag
-
-
-  flask:
-    build: ./app
-    container_name: ah_taskmanager_flask
-    ports:
-      - "8023:8000" 
-    volumes:
-      - ./app:/usr/src/app
-    networks:
-      - ag
-    working_dir: /usr/src/app
-    command: flask run --host=0.0.0.0 --port=8000
-    environment:
-      - FLASK_APP=app.py
-      - FLASK_ENV=development
-      - DATABASE_URL=mysql+pymysql://user:password@ah_taskmanager_mysql/taskmanager
-
-
-
-  mysql:
-    image: mysql:latest
-    container_name: ah_taskmanager_mysql
-    ports:
-      - 3313:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: taskmanager
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - ag
-
-
   web:
+    image: python:3.8-slim
+    container_name: ah_taskmanager_flask
+    build: .
+    command: flask run --host=0.0.0.0 --port=8023
+    volumes:
+      - .:/AH-TaskManager
+    ports:
+      - "8023:8023"
+    depends_on:
+      - redis
+    networks:
+      - ag
+    environment:
+      - FLASK_APP=run.py
+
+  redis:
+    image: "redis:alpine"
+    networks:
+      - ag
+
+  web_server:
     image: nginx:latest
     container_name: ah_taskmanager_web
     ports:
       - "9023:80"
     volumes:
-      - ./web:/usr/share/nginx/html
+      - .:/nginx.conf
+    depends_on:
+      - web
     networks:
       - ag
-
-
-  pgadmin:
-    image: dpage/pgadmin4:6.1
-    container_name: ah_taskmanager_pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - 5050:80
-    networks:
-      - ag
-
-
-volumes:
-  mysql_data:
-
 
 networks:
   ag:
     external: true
+  #  web:
+  #    image: python:3.8-slim
+  #    container_name: flask_app
+  #    working_dir: /app
+  #    volumes:
+  #      - ./flaskDirectory:/app
+  #    ports:
+  #      - "5000:5000"
+  #    command: >
+  #      sh -c "pip install -r requirements.txt &&
+  #             flask run --host=0.0.0.0"
