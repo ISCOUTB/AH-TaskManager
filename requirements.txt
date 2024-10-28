@@ -1,3 +1,5 @@
 Flask
 flask_SQLAlchemy
 PyMySQL
+Flask-WTF
+
