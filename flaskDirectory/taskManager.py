@@ -3,6 +3,7 @@ from flaskDirectory.auth import login_required
 from .models import Todo, User
 from flaskDirectory import db
 bp = Blueprint('taskManager', __name__, url_prefix = '/taskManager')
+taskmanager = 'taskManager.index'
 
 @bp.route('/list')
 @login_required
@@ -20,7 +21,7 @@ def create():
         todo = Todo(g.user.id, title, description)
         db.session.add(todo)
         db.session.commit()
-        return redirect(url_for('taskManager.index'))
+        return redirect(url_for(taskmanager))
     return render_template('todo/create.html')
 
 def get_todo(id):
@@ -38,7 +39,7 @@ def update(id):
         todo.status = True if request.form.get('status') == 'on' else False
 
         db.session.commit()
-        return redirect(url_for('taskManager.index'))
+        return redirect(url_for(taskmanager))
     return render_template('todo/update.html', todo = todo)
 
 @bp.route('/delete/<int:id>', methods = ('GET', 'POST'))
@@ -47,4 +48,4 @@ def delete(id):
     todo = get_todo(id)
     db.session.delete(todo)
     db.session.commit()
-    return redirect(url_for('taskManager.index'))
+    return redirect(url_for(taskmanager))
