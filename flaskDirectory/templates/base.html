@@ -10,14 +10,14 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-sm navbar" style="background-color: #ff7429;">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{url_for('index')}}">Task Manager</a>
+          <a class="navbar-brand" href="{{url_for('index')}}" style="color: #000000;font-weight: bolder;">Task Manager</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" style="color: #ff7429;font-weight: bolder;">
               {% if g.user %}
               <li class="nav-item">
                 <span class="nav-link active"> {{ g.user.username }} </span>

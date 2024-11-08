@@ -3,18 +3,19 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-    <div class="container-sm text-center">
-        <h1 class="display-3">Welcome to your task manager</h1>
+    <div class="container-sm text-center my-5";">
+        <h1 class="display-4" style="color: #000000;font-weight: bolder;">Welcome to your</h1>
+        <h1 class="display-3" style="color: #ff7420;font-weight: bolder;">Task Manager</h1>
 
-        <p class="lead">Here you can keep track of all your tasks and have an overview of your pending tasks.</p>
+        <p class="lead" style="font-weight: bolder;">Here you can keep track of all your tasks and have an overview of your pending tasks.</p>
 
         <hr class="my-4">
 
         <p>Already have an account?</p>
 
         <div class="d-flex justify-content-center">
-            <a href="{{url_for('auth.login')}}" class="btn btn-primary mx-2">Log In</a>
-            <a href="{{url_for('auth.signup')}}" class="btn btn-secondary mx-2">Sign Up</a>
+            <a href="{{url_for('auth.login')}}" class="btn btn-primary mx-2" style="font-weight: bolder; background-color: #ff7420;color: #000000;">Log In</a>
+            <a href="{{url_for('auth.signup')}}" class="btn btn-secondary mx-2" style="font-weight: bolder;">Sign Up</a>
         </div>
     </div>
 {% endblock %}
