@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, g
 from flaskDirectory.auth import login_required
 from .models import Todo, User
 from flaskDirectory import db
+
 bp = Blueprint('taskManager', __name__, url_prefix = '/taskManager')
 taskmanager = 'taskManager.index'
 
