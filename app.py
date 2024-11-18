@@ -62,12 +62,15 @@ def login():
 @app.route('/task_list')
 def task_list():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT * FROM tasks")
+    user_id = session.get('id')
+    cursor.execute("SELECT * FROM tasks WHERE user_id = %s", (user_id,))
+    tasks = cursor.fetchall()
+    
     if 'nombre' in session:  # Verifica si el usuario está logueado
         nombre_usuario = session['nombre']  # Obtiene el nombre del usuario desde la sesión
     else:
         nombre_usuario = None  # Si no está logueado, no pasa nombre
-    tasks = cursor.fetchall()
+    
     return render_template('task_list.html', tasks=tasks, nombre_usuario=nombre_usuario)
 
 # Ruta para agregar tareas

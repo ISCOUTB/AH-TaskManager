@@ -55,5 +55,19 @@
         {% endfor %}
       </tbody>
     </table>
+    <div class="justify-content-center" style="text-align: center;">
+      <a href="#" class="btn btn-success" style="background-color: orange;font-weight: bold;color: #000000;"  onclick="window.print()">Tasks Report</a>
+    </div>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const statusBadges = document.querySelectorAll('.badge');
+      statusBadges.forEach(badge => {
+        if (badge.textContent.trim() === 'completed') {
+          alert('Felicidades, un pendiente menos!');
+        }
+      });
+    });
+  </script>
 {% endblock %}
+

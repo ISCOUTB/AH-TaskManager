@@ -1,5 +1,6 @@
 Flask
+Flask_SQLAlchemy
 Flask-MySQL
 Flask-WTF
-MySQL-python
-bootstrap-flask
+mysqlclient
+bootstrap_flask

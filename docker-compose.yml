@@ -13,7 +13,7 @@ services:
     networks:
       - ag
     environment:
-      - FLASK_APP=run.py
+      - FLASK_APP=app.py
 
   redis:
     image: "redis:alpine"
