@@ -1,19 +1,17 @@
 services:
   web:
-    image: python:3.8-slim
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: ah_taskmanager_flask
-    build: .
-    command: flask run --host=0.0.0.0 --port=8023
     volumes:
-      - .:/AH-TaskManager
+      - .:/app
     ports:
       - "8023:8023"
     depends_on:
       - redis
     networks:
       - ag
-    environment:
-      - FLASK_APP=run.py
 
   redis:
     image: "redis:alpine"
