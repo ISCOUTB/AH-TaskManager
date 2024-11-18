@@ -1,0 +1,48 @@
+services:
+  web:
+    image: python:3.8-slim
+    container_name: ah_taskmanager_flask
+    build: .
+    command: flask run --host=0.0.0.0 --port=8023
+    volumes:
+      - .:/AH-TaskManager
+    ports:
+      - "8023:8023"
+    depends_on:
+      - redis
+    networks:
+      - ag
+    environment:
+      - FLASK_APP=run.py
+
+  redis:
+    image: "redis:alpine"
+    networks:
+      - ag
+
+  web_server:
+    image: nginx:latest
+    container_name: ah_taskmanager_web
+    ports:
+      - "9023:80"
+    volumes:
+      - .:/nginx.conf
+    depends_on:
+      - web
+    networks:
+      - ag
+
+networks:
+  ag:
+    external: true
+  #  web:
+  #    image: python:3.8-slim
+  #    container_name: flask_app
+  #    working_dir: /app
+  #    volumes:
+  #      - ./flaskDirectory:/app
+  #    ports:
+  #      - "5000:5000"
+  #    command: >
+  #      sh -c "pip install -r requirements.txt &&
+  #             flask run --host=0.0.0.0"

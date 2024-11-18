@@ -1,0 +1,5 @@
+Flask
+Flask-MySQL
+Flask-WTF
+MySQL-python
+bootstrap-flask

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+  <!-- Barra de navegación -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: orange;">
+    <a class="navbar-brand" href="/" style="color: black;">Task Manager</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        {% if nombre_usuario %}
+          <li class="nav-item">
+            <span class="nav-link" style="color: black;">Hi {{ nombre_usuario }}!</span>
+          </li>
+        {% endif %}
+        <li class="nav-item">
+          <form action="{{ url_for('logout') }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-link nav-link" style="color: black;">Log Out</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>To do list</h2>
+        <a href="{{ url_for('add_task') }}" class="btn btn-primary">Add Task</a>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Status</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in tasks %}
+          <tr>
+            <td><strong>{{ task['name'] }}</strong></td>
+            <td><p class="mb-0 small">{{ task['description'] }}</p></td>
+            <td>
+              <span class="badge"
+                    style="background-color: {% if task['status'] == 'pending' %}#dc3545{% elif task['status'] == 'completed' %}#90EE90{% endif %}; color: black;">
+                {{ task['status'] }}
+              </span>
+            </td>
+            <td>
+              <a href="{{ url_for('edit_task', task_id=task['id']) }}" class="btn btn-warning btn-sm">Edit</a>
+              <form action="{{ url_for('delete_task', task_id=task['id']) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm" style="color: black;">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: orange;
+        }
+        .navbar-brand {
+            color: black !important;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: black !important;
+        }
+        h2 {
+            color: orange;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn-save {
+            background-color: orange;
+            color: white;
+        }
+        .btn-cancel {
+            background-color: gray;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">Task Manager</a>
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="nav-link">Hi {{ session['nombre'] }}!</span>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{{ url_for('logout') }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-link nav-link">Log Out</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor del formulario -->
+    <div class="container mt-5">
+        <h2>Edit Task</h2>
+        <form action="{{ url_for('edit_task', task_id=task['id']) }}" method="POST" class="mt-4">
+            <div class="mb-4">
+                <label for="name" class="form-label">Title</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ task['name'] }}" required>
+            </div>
+            <div class="mb-4">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required>{{ task['description'] }}</textarea>
+            </div>
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="done" name="status" value="completed" {% if task['status'] == 'completed' %}checked{% endif %}>
+                <label class="form-check-label" for="done">Done</label>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-save me-2">Save</button>
+                <a href="{{ url_for('task_list') }}" class="btn btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
